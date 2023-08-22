@@ -67,9 +67,11 @@ app.get("/u/:id", (req, res) => {
   res.redirect(longURL);
 });
 
+/*
 app.get("/hello", (req, res) => {
   res.send("<html><body>Hello <b>World</b></body></html>\n");
 });
+*/
 
 app.post("/urls/:id/delete", (req, res) => { 
   const id = req.body.id;
@@ -87,8 +89,12 @@ app.post("/urls/:id/edit", (req, res) => {
 app.post("/login", (req, res) => { 
   const username = req.body.username;
   res.cookie('username', username);
-  //console.log(req.cookies.username);
   res.redirect("/urls"); 
+});
+
+app.post("/logout", (req, res) => {
+  res.clearCookie("username");
+  res.redirect("/urls");
 });
 
 
