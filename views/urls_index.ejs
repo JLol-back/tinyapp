@@ -37,7 +37,7 @@
               <td>
                 <a class="btn btn-outline-primary" href="/urls/<%= id %>">EDIT</a></td>
               <td>
-                <form method="POST" action="/urls/<%= id %>/delete"> <!--POST WORKS BUT NEED TO DYNAMICALLY GET ID IN ACTION-->
+                <form method="POST" action="/urls/<%= id %>/delete"> 
                   <input type="hidden" name="id" value="<%= id %>">
                   <button type="submit" class="btn btn-outline-danger">DELETE</button>
                 </form>
