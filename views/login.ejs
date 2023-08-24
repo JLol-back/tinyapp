@@ -12,21 +12,24 @@
   </head>
   <body>
     <div><%- include('partials/_header') %></div>
-    <div class="card text-center">
+    <div class="card text">
       <div class="card-body">
-        <h5 class="card-title">User Login</h5>
+        <h3 class="card-title">Login</h3>
         <p class="card-text">
           Sign in to access your shortened urls.  
         </p>
         <form method="POST" action="/login">
-          <label for="email">Email:</label>
-          <input type="email" name="email" placeholder="johndoe@mail.com">
-          <label for="password">Password:</label>
-          <input type="password" name="password">
+          <label for="email"><strong>Email:</strong></label>
+          <br>
+          <input type="email" name="email" placeholder="Enter email">
+          <br>
+          <label for="password"><strong>Password:</strong></label>
+          <br>
+          <input type="password" name="password" placeholder="Password">
+          <br><br>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
-      <div class="card-footer text-muted"></div>
     </div>
     <!-- Bootstrap JS -->
     <script

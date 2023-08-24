@@ -12,21 +12,24 @@
   </head>
   <body>
     <div><%- include('partials/_header') %></div>
-    <div class="card text-center">
+    <div class="card text">
       <div class="card-body">
-        <h5 class="card-title">Register An Account</h5>
+        <h3 class="card-title">Create An Account</h3>
         <p class="card-text">
           Fill out your details below to start shortening urls with TinyApp!  
         </p>
         <form method="POST" action="/register">
-          <label for="email">Email:</label>
-          <input type="email" name="email" placeholder="johndoe@mail.com">
-          <label for="password">Password:</label>
-          <input type="password" name="password">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <label for="email"><strong>Email:</strong></label>
+          <br>
+          <input type="email" name="email" placeholder="Enter email">
+          <br><br>
+          <label for="password"><strong>Password:</strong></label>
+          <br>
+          <input type="password" name="password" placeholder="Enter password">
+          <br><br>
+          <button type="submit" class="btn btn-primary">Register</button>
         </form>
       </div>
-      <div class="card-footer text-muted"></div>
     </div>
     <!-- Bootstrap JS -->
     <script
