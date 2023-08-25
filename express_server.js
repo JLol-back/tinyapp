@@ -118,7 +118,12 @@ app.get("/register", (req, res) => {
     urls: urlDatabase, 
     user: users[user_id]
   };
-  res.render("register", templateVars);
+
+  if (user_id !== undefined) {
+    res.redirect("/urls");
+  } else {
+    res.render("register", templateVars);
+  }  
 });
 
 app.get("/login", (req, res) => {
@@ -127,7 +132,12 @@ app.get("/login", (req, res) => {
     urls: urlDatabase, 
     user: users[user_id]
   };
-  res.render("login", templateVars);
+  
+  if (user_id !== undefined) {
+    res.redirect("/urls");
+  } else {
+    res.render("login", templateVars);
+  }  
 });
 
 
