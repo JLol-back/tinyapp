@@ -69,10 +69,16 @@ app.get("/urls", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
+  let user_id = req.cookies["user_id"];
   const templateVars = { urls: urlDatabase };
   let shortUrl = generateRandomString();
   urlDatabase[shortUrl] = req.body.longURL;
-  res.redirect(`/urls/${shortUrl}`); 
+  
+  if (user_id === undefined) {
+    res.status(400).send('Only registered users can shorten URLs');
+  } else {
+    res.redirect(`/urls/${shortUrl}`);
+  }  
 });
 
 app.post("/register", (req, res) => {
@@ -109,7 +115,12 @@ app.get("/urls/new", (req, res) => {
     urls: urlDatabase, 
     user: users[user_id]
   };
-  res.render("urls_new", templateVars);
+
+  if (user_id === undefined) {
+    res.redirect("/login");
+  } else {
+    res.render("urls_new", templateVars);
+  }  
 });
 
 app.get("/register", (req, res) => {
