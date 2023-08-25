@@ -160,6 +160,7 @@ app.get("/urls/:id", (req, res) => {
     urls: urlDatabase, 
     user: users[user_id]
   };
+  
   res.render("urls_show", templateVars);
 });
 
@@ -171,7 +172,12 @@ app.get("/u/:id", (req, res) => {
     user: users[user_id]
   };
   const longURL = urlDatabase[req.params.id]; // Move into object
-  res.redirect(longURL);
+  
+  if (longURL === undefined) {
+    res.status(400).send('The provided shortened URL id does not exist');
+  } else {
+    res.redirect(longURL);
+  }  
 });
 
 app.post("/urls/:id/delete", (req, res) => { 
