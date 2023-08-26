@@ -19,7 +19,11 @@
   <body> 
     <div><%- include('partials/_header') %></div>
     <main style="margin: 1em;">
+      <% if (user) { %>
       <h3>My URLs</h3>
+      <% if (filteredUrls.length === 0) { %>
+        <p><mark>Looks like you don't have any shortened URLs! Click the button below to change that.</mark></p>
+        <% } %>
       <table class="table">
         <thead>
           <tr>
@@ -30,23 +34,29 @@
           </tr>
         </thead>
         <tbody>
-          <% for (let id in urls) { %>
+          <% filteredUrls.forEach((shortUrl) => { %>
             <tr>
-              <td><%= id %></td>
-              <td><%= urls[id] %></td>
+              <td><%= shortUrl %></td>
+              <td><%= urls[shortUrl].longURL %></td>
               <td>
-                <a class="btn btn-outline-primary" href="/urls/<%= id %>">EDIT</a></td>
+                <a class="btn btn-outline-primary" href="/urls/<%= shortUrl %>">EDIT</a></td>
               <td>
-                <form method="POST" action="/urls/<%= id %>/delete"> 
-                  <input type="hidden" name="id" value="<%= id %>">
+                <form method="POST" action="/urls/<%= shortUrl %>/delete"> 
+                  <input type="hidden" name="id" value="<%= shortUrl %>">
                   <button type="submit" class="btn btn-outline-danger">DELETE</button>
                 </form>
               </td>
             </tr>
-          <% } %>
+          <% }) %>
         </tbody>
       </table>
       <a class="btn btn-primary" href="/urls/new">Create a New Shortened URL</a>
+      <% } else { %>
+        <h3>Uh oh...</h3>
+        <br>
+        <p>Please <a href ="/login">log in</a> to view shortened URLs.</p>
+        <p>If your don't have an account yet, create one <a href ="/register">here.</a></p>
+      <% } %>
     </main>
     <!-- Bootstrap JS -->
     <script
