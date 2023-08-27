@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = 8080; // default port 8080
 const cookieParser = require('cookie-parser');
-
+const bcrypt = require("bcryptjs");
 
 //const urlsForUser = require('./urlsForUser');
 
@@ -130,10 +130,13 @@ app.post("/urls", (req, res) => {
 app.post("/register", (req, res) => {
     
   let user_id = generateRandomString();
+  let password = req.body["password"];
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  
   let newUser = {
     id: user_id, 
     email: req.body["email"], 
-    password: req.body["password"]
+    password: hashedPassword
   };
 
   if (newUser.email === '' || newUser.password === '') {
@@ -143,6 +146,8 @@ app.post("/register", (req, res) => {
   if (getUserByEmail(newUser.email) !== null) {
     res.status(400).send('An account with this email already exists. Please log-in to use TinyApp');
   };
+
+  console.log(newUser);
 
   users[newUser.id] = newUser;
   res.cookie("user_id", user_id);
@@ -187,7 +192,6 @@ app.post("/urls/:id/edit", (req, res) => {
 app.post("/login", (req, res) => { 
   const email = req.body.email;
   const user = getUserByEmail(email);
-  console.log(user);
   const password = req.body.password;
 
   if (user == null && password === '') {
@@ -197,12 +201,11 @@ app.post("/login", (req, res) => {
   if (user === null) {
     res.status(403).send("User not found in our DB");
   }
-  
-  if (password !== user.password) {
+
+  if ((bcrypt.compareSync(password.toString(), user.password)) === false) {
     res.status(403).send("Incorrect password. Please try again");
   }
 
- 
   res.cookie('user_id', user.id);
   res.redirect("/urls"); 
 });
