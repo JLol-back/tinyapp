@@ -43,8 +43,8 @@ const generateRandomString = () => {
 
 
 /**
- * urlsForUser 
- * @param {string} id 
+ * urlsForUser
+ * @param {string} id - a user_id associated with the corresponding user account (object) set as an encrypted cookie at login.
  * @param {object} database - intended to be used with the urlDatabase object. 
  * @returns {array} containing the unique url ids associated with the corresponding user object. 
  */
