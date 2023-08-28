@@ -257,11 +257,6 @@ app.post("/logout", (req, res) => {
 /*****************************************************************************************/
 
 
-
-app.get("/", (req, res) => {
-  res.send("Hello!");
-});
-
 app.get("/urls", (req, res) => {
   let user_id = req.session.user_id;
   let filteredUrls = urlsForUser(user_id, urlDatabase);
@@ -275,9 +270,6 @@ app.get("/urls", (req, res) => {
   res.render("urls_index", templateVars);
 });
 
-app.get("/urls.json", (req, res) => {
-  res.json(urlDatabase);
-});
 
 app.get("/urls/new", (req, res) => {
   let user_id = req.session.user_id;
@@ -367,12 +359,12 @@ app.get("/u/:id", (req, res) => {
     user: users[user_id]
   };
   
-  const longURL = urlDatabase[req.params.id].longURL; // Move into object
-  
-  if (longURL === undefined) {
+  if (urlDatabase[req.params.id] === undefined) {
     res.status(400).send('The provided shortened URL id does not exist');
     return;
   }
+
+  const longURL = urlDatabase[req.params.id].longURL; 
 
   res.redirect(longURL);
 
