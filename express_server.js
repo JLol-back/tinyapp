@@ -331,6 +331,12 @@ app.get("/login", (req, res) => {
 
 app.get("/urls/:id", (req, res) => {
   let user_id = req.session.user_id;
+  
+  if (urlDatabase[req.params.id] === undefined) {
+    res.status(400).send('We have no record of this Shortened URL');
+    return; 
+  }  
+  
   let longURL = urlDatabase[req.params.id].longURL;
 
   const templateVars = {
